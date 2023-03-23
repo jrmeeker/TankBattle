@@ -11,6 +11,7 @@ first_pos = (450, 930)
 second_pos = (680, 931)
 third_pos = (980, 939)
 fourth_pos = (1280, 932)
+repair_all_pos = (951, 652)
 NUM_TANKS = 25
 ERROR_MARGIN = 2
 positions = [first_pos, second_pos, third_pos, fourth_pos]
@@ -165,6 +166,25 @@ def prep_all_from_home_screen(tanks):
     select_first()
     leave_garage()
     return
+
+#repair all tanks using "Repair all tanks" button
+def click_repair_all():
+    pyautogui.moveTo(repair_all_pos[0], repair_all_pos[1], 0.25)
+    pyautogui.click(repair_all_pos[0], repair_all_pos[1])
+
+    #wait for metamask to open
+    time_wait = 40
+    time.sleep(time_wait)
+    print('waiting ' + str(time_wait) + ' seconds for metamask to open...')
+
+    #scroll down
+    pyautogui.moveTo(1910, 685, 0.25)
+    pyautogui.click(1910, 685)
+    time.sleep(3)
+
+    #click on confirm
+    pyautogui.moveTo(1790, 707, 0.25)
+    pyautogui.click(1790, 707)
 
 
 ################################################################################

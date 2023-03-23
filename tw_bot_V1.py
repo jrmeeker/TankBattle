@@ -431,11 +431,6 @@ def click(x, y):
     time.sleep(0.08)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
 
-#click using pyautogui
-def pyclick(x, y):
-    pyautogui.moveTo(x, y, 0.05)
-    pyautogui.click(x, y)
-
 #go to garage
 def open_garage():
     pyautogui.moveTo(814, 984, 0.3)
@@ -461,10 +456,6 @@ def click_shield():
     pyautogui.moveTo(shield_pos[0], shield_pos[1], 0.25)
     pyautogui.click(shield_pos[0], shield_pos[1])
 
-#close galaxy advantage pop up
-def close_ga():
-    pyautogui.moveTo(1169, 504, 0.15)
-    pyautogui.click(1169, 504)
 
 board_size = 6
 #original board box
@@ -496,12 +487,8 @@ battle_pos, rockets_pos, lightning_pos, shield_pos = (1451, 954), (1085, 923), (
 
 #prepare fleet
 print('PREPARING FLEET...')
-if len(sys.argv) < 2:
+#if len(sys.argv) < 2:
     #prep_all_from_home_screen(NUM_TANKS + 4)                  ### UNCOMMENT BEFORE RUNNING FROM BEGINNING!!!! ############################
-    open_garage()
-    #click_repair_all()  #repair all tanks in garage
-    time.sleep(1)
-    leave_garage()
 #input('FLEET READY -- PRESS ENTER TO JOIN BATTLE')
 print('FLEET READY!')
 time.sleep(2)
@@ -524,11 +511,11 @@ else:
 for i in range(START_INDEX, NUM_TANKS + 2):
 
     if i > 0:
-        #pyautogui.moveTo(g_pos[0], g_pos[1], 0.65)
+        pyautogui.moveTo(g_pos[0], g_pos[1], 0.65)
         #open_garage()
-        #time.sleep(2.5)
+        time.sleep(2.5)
 
-
+        '''
         if i == 1:
             print('SELECT SECOND')
             select_second()
@@ -544,7 +531,7 @@ for i in range(START_INDEX, NUM_TANKS + 2):
         else:
             print('NEXT TANK')
             next_tank()
-
+        '''
 
 
     for i in range(5):
@@ -558,9 +545,6 @@ for i in range(START_INDEX, NUM_TANKS + 2):
         click(517, 698)  #ADDED THIS IN 7/7/2022 TO CLICK ON PVE MODE
 
         time.sleep(3)
-
-        #close the galaxy advantage window
-        close_ga()
 
         #track if time has been adjusted or not for timing purposes
         time_adjusted = False
@@ -640,14 +624,17 @@ for i in range(START_INDEX, NUM_TANKS + 2):
                 capture = grab_board()
                 move = solver(functions_list)
                 try:
-                    pyclick(x, y)
+                    click1, click2 = map[move[0]], map[move[1]]
+                    click(click1[0], click1[1])
+                    click(click1[0], click1[1])
                     time.sleep(.01)
+                    click(click2[0], click2[1])
+                    click(click2[0], click2[1])
                 except:
                     pass
                 t1 = time.time()
                 t = t1 - t0
                 time.sleep(0.01)
-                print('t:', t)
 
             #wait for round to end
             if i < 2:
